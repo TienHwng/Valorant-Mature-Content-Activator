@@ -1,0 +1,88 @@
+﻿<Window x:Class="ValorantMatureContent.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Valorant Mature Content Manager"
+        Width="980" Height="720" MinWidth="760" MinHeight="620"
+        Background="{StaticResource CanvasBrush}" Foreground="{StaticResource InkBrush}"
+        FontFamily="Segoe UI Variable Text" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="#202020" Padding="32,22">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Left">
+                    <TextBlock Text="VALORANT" Foreground="White" FontFamily="Bahnschrift SemiBold" FontSize="28" />
+                    <TextBlock Text="Mature Content Manager" Foreground="#BEB8B0" FontSize="14" />
+                </StackPanel>
+                <Button DockPanel.Dock="Right" Content="Refresh" Command="{Binding RefreshCommand}" Margin="12,0,0,0" />
+            </DockPanel>
+        </Border>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Grid Margin="32,28">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="SYSTEM STATUS" FontFamily="Bahnschrift SemiBold" FontSize="13" Foreground="{StaticResource AccentBrush}" />
+                    <Border Background="{StaticResource PanelBrush}" BorderBrush="#DDD7CF" BorderThickness="1" CornerRadius="6" Margin="0,10,0,22" Padding="22">
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="150" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions><RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition /></Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Installation" Foreground="{StaticResource MutedBrush}" Margin="0,5" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding InstallationPath}" TextWrapping="Wrap" Margin="0,5" />
+                            <TextBlock Grid.Row="1" Text="Game build" Foreground="{StaticResource MutedBrush}" Margin="0,5" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding GameVersion}" Margin="0,5" />
+                            <TextBlock Grid.Row="2" Text="Content state" Foreground="{StaticResource MutedBrush}" Margin="0,5" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ContentState}" FontWeight="SemiBold" Margin="0,5" />
+                            <TextBlock Grid.Row="3" Text="Compatibility" Foreground="{StaticResource MutedBrush}" Margin="0,5" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Compatibility}" Margin="0,5" />
+                            <TextBlock Grid.Row="4" Text="Payload" Foreground="{StaticResource MutedBrush}" Margin="0,5" />
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding PayloadVersion}" Margin="0,5" />
+                            <TextBlock Grid.Row="5" Text="Backup" Foreground="{StaticResource MutedBrush}" Margin="0,5" />
+                            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Backup}" Margin="0,5" />
+                        </Grid>
+                    </Border>
+                    <TextBlock Text="ACTIONS" FontFamily="Bahnschrift SemiBold" FontSize="13" Foreground="{StaticResource AccentBrush}" />
+                    <WrapPanel Margin="0,10,0,10">
+                        <Button Content="Enable" Command="{Binding EnableCommand}" Background="{StaticResource AccentBrush}" Foreground="White" />
+                        <Button Content="Disable / Restore" Command="{Binding DisableCommand}" />
+                        <Button Content="Verify" Command="{Binding VerifyCommand}" />
+                        <Button Content="Repair" Command="{Binding RepairCommand}" />
+                        <Button Content="Backup" Command="{Binding BackupCommand}" />
+                    </WrapPanel>
+                    <TextBlock Text="{Binding ActionAvailability}" Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" Margin="0,0,0,20" />
+                    <TextBlock Text="INSTALLATION PATH" FontFamily="Bahnschrift SemiBold" FontSize="13" Foreground="{StaticResource AccentBrush}" />
+                    <DockPanel Margin="0,10,0,0">
+                        <Button DockPanel.Dock="Right" Content="Save path" Command="{Binding SavePathCommand}" Margin="8,0,0,0" />
+                        <TextBox Text="{Binding ManualPath, UpdateSourceTrigger=PropertyChanged}" Padding="10" VerticalContentAlignment="Center" />
+                    </DockPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="TOOLS" FontFamily="Bahnschrift SemiBold" FontSize="13" Foreground="{StaticResource AccentBrush}" />
+                    <UniformGrid Columns="1" Margin="0,10,0,18">
+                        <Button Content="Run diagnostics" Command="{Binding DiagnoseCommand}" HorizontalContentAlignment="Left" />
+                        <Button Content="Copy report" Command="{Binding CopyReportCommand}" HorizontalContentAlignment="Left" />
+                        <Button Content="Open Paks folder" Command="{Binding OpenPaksCommand}" HorizontalContentAlignment="Left" />
+                        <Button Content="Open logs" Command="{Binding OpenLogsCommand}" HorizontalContentAlignment="Left" />
+                        <Button Content="Launch VALORANT" Command="{Binding LaunchCommand}" HorizontalContentAlignment="Left" />
+                    </UniformGrid>
+                    <TextBlock Text="DETAILS" FontFamily="Bahnschrift SemiBold" FontSize="13" Foreground="{StaticResource AccentBrush}" />
+                    <Border Background="#EAE6E0" CornerRadius="6" Margin="0,10,0,0" Padding="16" MinHeight="180">
+                        <TextBlock Text="{Binding Details}" TextWrapping="Wrap" FontFamily="Cascadia Mono" FontSize="12" />
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+        <Border Grid.Row="2" Background="#E7E1DA" Padding="32,12">
+            <DockPanel>
+                <ProgressBar DockPanel.Dock="Right" Width="150" Height="6" IsIndeterminate="True" Visibility="{Binding ProgressVisibility}" />
+                <TextBlock Text="{Binding ProgressText}" Foreground="{StaticResource MutedBrush}" />
+            </DockPanel>
+        </Border>
+    </Grid>
+</Window>

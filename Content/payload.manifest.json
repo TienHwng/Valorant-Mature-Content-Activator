@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "payloadVersion": "legacy-fc4765b",
+  "supportedGameBuilds": [],
+  "files": [
+    {
+      "name": "MatureData-WindowsClient.pak",
+      "sha256": "FAEE055B04BF0EBC13B6A1E0EB628965DC2612E990CE77B660384B38F08BE61E",
+      "size": 365
+    },
+    {
+      "name": "MatureData-WindowsClient.sig",
+      "sha256": "EC481B9F75C7E785F6AA92C710BFDB5DA5557FB3B256DF1A88C23700FCA2C4FF",
+      "size": 532
+    },
+    {
+      "name": "MatureData-WindowsClient.ucas",
+      "sha256": "ABADFBBB0BEEE54D404C614DF69F313D8DCB30B95F0ACA97A0AA065A8E5709F1",
+      "size": 1277552
+    },
+    {
+      "name": "MatureData-WindowsClient.utoc",
+      "sha256": "08F9096AC8EEA9869E6B623275C3999A1EB14F0CDFDDE97FD27489F8232DC9B4",
+      "size": 8818
+    }
+  ]
+}
