@@ -1,1 +1,9 @@
 Content/Blood Files.rar
+**/bin/
+**/obj/
+.vs/
+TestResults/
+artifacts/
+publish/
+*.user
+*.suo

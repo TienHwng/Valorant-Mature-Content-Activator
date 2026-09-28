@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore
+        run: dotnet restore ValorantMatureContentManager.sln
+      - name: Build
+        run: dotnet build ValorantMatureContentManager.sln --configuration Release --no-restore
+      - name: Test
+        run: dotnet test ValorantMatureContentManager.sln --configuration Release --no-build
+      - name: Publish applications
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}".TrimStart('v')
+          $root = "artifacts/ValorantMatureContentManager-v$version-win-x64"
+          dotnet publish src/ValorantMatureContent.Desktop -c Release -r win-x64 --self-contained true -o "$root/desktop" -p:PublishSingleFile=true
+          dotnet publish src/ValorantMatureContent.Cli -c Release -r win-x64 --self-contained true -o "$root/cli" -p:PublishSingleFile=true
+          Compress-Archive -Path "$root/*" -DestinationPath "$root.zip"
+          $hash = (Get-FileHash "$root.zip" -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  $(Split-Path "$root.zip" -Leaf)" | Set-Content artifacts/SHA256SUMS.txt -Encoding ascii
+      - name: Create GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${{ github.ref_name }}" artifacts/*.zip artifacts/SHA256SUMS.txt --generate-notes --verify-tag
